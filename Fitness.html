@@ -179,7 +179,37 @@
 	createChat({
 		webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat'
 	});
+	createChat({
+	webhookUrl: '',
+	webhookConfig: {
+		method: 'POST',
+		headers: {}
+	},
+	target: '#n8n-chat',
+	mode: 'window',
+	chatInputKey: 'chatInput',
+	chatSessionKey: 'sessionId',
+	loadPreviousSession: true,
+	metadata: {},
+	showWelcomeScreen: false,
+	defaultLanguage: 'en',
+	initialMessages: [
+		'Hi there! 👋',
+		'My name is Nathan. How can I assist you today?'
+	],
+	i18n: {
+		en: {
+			title: 'Hi there! 👋',
+			subtitle: "Start a chat. We're here to help you 24/7.",
+			footer: '',
+			getStarted: 'New Conversation',
+			inputPlaceholder: 'Type your question..',
+		},
+	},
+	enableStreaming: false,
+});
 </script>
+	
 <script>
     function toggleFAQ(element) {
         const answer = element.querySelector(".faq-answer");
