@@ -176,37 +176,34 @@
 <script type="module">
 	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	createChat({
-		webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat'
-	});
-	createChat({
-	webhookUrl: '',
-	webhookConfig: {
-		method: 'POST',
-		headers: {}
-	},
-	target: '#n8n-chat',
-	mode: 'window',
-	chatInputKey: 'chatInput',
-	chatSessionKey: 'sessionId',
-	loadPreviousSession: true,
-	metadata: {},
-	showWelcomeScreen: false,
-	defaultLanguage: 'en',
-	initialMessages: [
-		'Bonjour 👋',
-		'My name is Nathan. How can I assist you today?'
-	],
-	i18n: {
-		en: {
-			title: 'Bonjour 👋',
-			subtitle: "Start a chat. We're here to help you 24/7.",
-			footer: '',
-			getStarted: 'New Conversation',
-			inputPlaceholder: 'Type your question..',
-		},
-	},
-	enableStreaming: false,
+createChat({
+    webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
+    webhookConfig: {
+        method: 'POST',
+        headers: {}
+    },
+    target: '#n8n-chat',
+    mode: 'window',
+    chatInputKey: 'chatInput',
+    chatSessionKey: 'sessionId',
+    loadPreviousSession: true,
+    metadata: {},
+    showWelcomeScreen: false,
+    defaultLanguage: 'de',
+    initialMessages: [
+        'Hey! 👋 Willkommen beim Strength Gym!',
+        'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪'
+    ],
+    i18n: {
+        de: {
+            title: 'Strength Gym Assistent',
+            subtitle: 'Wir sind für dich da!',
+            inputPlaceholder: 'Schreib deine Frage...',
+            getStarted: 'Gespräch starten',
+            footer: '',
+        },
+    },
+    enableStreaming: false,
 });
 </script>
 	
