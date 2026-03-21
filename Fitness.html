@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PowerFit Fitnessstudio</title>
     <style>
+
+		#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #111;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    font-size: 14px;
+}
+
+#cookie-banner a {
+    color: #e63946;
+}
+
+#cookie-accept {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 15px;
+    white-space: nowrap;
+}
+
+#cookie-decline {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -98,7 +139,25 @@
     </style>
 </head>
 <body>
-
+<div id="cookie-banner">
+    <span>
+        Wir nutzen Cookies für den Chatbot und 
+        externe Dienste. 
+        <a href="/Fitnesstest/datenschutz.html">
+            Mehr erfahren
+        </a>
+    </span>
+    <div>
+        <button id="cookie-decline" 
+                onclick="declineCookies()">
+            Ablehnen
+        </button>
+        <button id="cookie-accept" 
+                onclick="acceptCookies()">
+            Alle akzeptieren
+        </button>
+    </div>
+</div>
 <header>
     <h1>PowerFit Fitnessstudio</h1>
     <p>Dein Weg zu einem stärkeren Ich 💪</p>
@@ -211,6 +270,24 @@ createChat({
     enableStreaming: false,
 });
 </script>
+	// Cookie Banner
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookie-banner')
+            .style.display = 'none';
+}
+
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookie-banner')
+            .style.display = 'none';
+}
+
+// Banner verstecken wenn bereits entschieden
+if (localStorage.getItem('cookieConsent')) {
+    document.getElementById('cookie-banner')
+            .style.display = 'none';
+}
 	
 <script>
     function toggleFAQ(element) {
