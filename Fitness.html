@@ -238,8 +238,6 @@
 	
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
 createChat({
     webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
     webhookConfig: {
@@ -252,7 +250,7 @@ createChat({
     chatSessionKey: 'sessionId',
     loadPreviousSession: true,
     metadata: {},
-    showWelcomeScreen: true,		
+    showWelcomeScreen: true,
     defaultLanguage: 'de',
     initialMessages: [
         'Hey! 👋 Willkommen beim Strength Gym!',
@@ -269,7 +267,7 @@ createChat({
     },
     enableStreaming: false,
 });
-</script>   ← DIESER SCHLUSSTAG FEHLT!
+</script>
 <script>
 function acceptCookies() {
     localStorage.setItem('cookieConsent', 'accepted');
