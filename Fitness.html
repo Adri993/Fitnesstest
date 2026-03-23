@@ -303,10 +303,11 @@
 
     window.onload = function () {
 
-        // Cookie Banner prüfen
-        if (localStorage.getItem('cookieConsent')) {
-            document.getElementById('cookie-banner').style.display = 'none';
-        }
+const cookieDecision = localStorage.getItem('cookieConsent');
+
+if (cookieDecision === 'accepted' || cookieDecision === 'declined') {
+    document.getElementById('cookie-banner').style.display = 'none';
+}
 
         // 🔥 BONUS: Chat nur starten wenn BEIDES akzeptiert wurde
         if (
