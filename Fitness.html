@@ -122,7 +122,48 @@
     </style>
 </head>
 <body>
+<div id="chat-consent-modal" style="
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+">
+    <div style="
+        background: white;
+        max-width: 500px;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: left;
+    ">
+        <h2 style="color:#e63946;">Datenschutz</h2>
+        <p>
+            Unser digitaler Assistent hilft dir bei Service- und Beratungsthemen.
+            Wenn du zustimmst, wird der Chatbot aktiviert und deine Eingaben verarbeitet.
+        </p>
+        <p>
+            Mehr Infos findest du in unserer
+            <a href="/Fitnesstest/datenschutz.html">Datenschutzerklärung</a>.
+        </p>
 
+        <div style="margin-top:20px; text-align:right;">
+            <button onclick="declineChat()" style="margin-right:10px;">
+                Ablehnen
+            </button>
+            <button onclick="acceptChat()" style="
+                background:#e63946;
+                color:white;
+                border:none;
+                padding:10px 20px;
+                border-radius:5px;
+            ">
+                Zustimmen
+            </button>
+        </div>
+    </div>
+</div>
 <div id="cookie-banner">
     <span>
         Wir nutzen Cookies für den Chatbot und externe Dienste.
@@ -204,48 +245,84 @@
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
     import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-    createChat({
-        webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
-        webhookConfig: { method: 'POST', headers: {} },
-        target: '#n8n-chat',
-        mode: 'window',
-        chatInputKey: 'chatInput',
-        chatSessionKey: 'sessionId',
-        loadPreviousSession: true,
-        metadata: {},
-        showWelcomeScreen: false,
-        defaultLanguage: 'de',
-        initialMessages: [
-            'Hey! 👋 Willkommen beim Strength Gym!',
-            'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪'
-        ],
-        i18n: {
-            de: {
-                title: 'Strength Gym Assistent',
-                subtitle: '24/7 erreichbar!',
-                inputPlaceholder: 'Schreib deine Frage...',
-                getStarted: 'Gespräch starten',
-                footer: '',
-            },
-        },
-        enableStreaming: false,
-    });
-</script>
 
+    window.initChatbot = function () {
+        createChat({
+            webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
+            webhookConfig: { method: 'POST', headers: {} },
+            target: '#n8n-chat',
+            mode: 'window',
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            loadPreviousSession: true,
+            metadata: {},
+            showWelcomeScreen: false,
+            defaultLanguage: 'de',
+            initialMessages: [
+                'Hey! 👋 Willkommen beim Strength Gym!',
+                'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪'
+            ],
+            i18n: {
+                de: {
+                    title: 'Strength Gym Assistent',
+                    subtitle: '24/7 erreichbar!',
+                    inputPlaceholder: 'Schreib deine Frage...',
+                    getStarted: 'Gespräch starten',
+                    footer: '',
+                },
+            },
+            enableStreaming: false,
+        });
+    }
+</script>
 <script>
     function acceptCookies() {
         localStorage.setItem('cookieConsent', 'accepted');
         document.getElementById('cookie-banner').style.display = 'none';
     }
+
     function declineCookies() {
         localStorage.setItem('cookieConsent', 'declined');
         document.getElementById('cookie-banner').style.display = 'none';
     }
-    window.onload = function() {
+
+    function acceptChat() {
+        localStorage.setItem('chatConsent', 'accepted');
+        document.getElementById('chat-consent-modal').style.display = 'none';
+
+        // 🔥 BONUS direkt integriert
+        if (localStorage.getItem('cookieConsent') === 'accepted') {
+            window.initChatbot();
+        }
+    }
+
+    function declineChat() {
+        localStorage.setItem('chatConsent', 'declined');
+        document.getElementById('chat-consent-modal').style.display = 'none';
+    }
+
+    window.onload = function () {
+
+        // Cookie Banner prüfen
         if (localStorage.getItem('cookieConsent')) {
             document.getElementById('cookie-banner').style.display = 'none';
         }
-    }
+
+        // 🔥 BONUS: Chat nur starten wenn BEIDES akzeptiert wurde
+        if (
+            localStorage.getItem('cookieConsent') === 'accepted' &&
+            localStorage.getItem('chatConsent') === 'accepted'
+        ) {
+            document.getElementById('chat-consent-modal').style.display = 'none';
+            window.initChatbot();
+        }
+
+        // Falls Chat abgelehnt → Modal nicht zeigen
+        else if (localStorage.getItem('chatConsent') === 'declined') {
+            document.getElementById('chat-consent-modal').style.display = 'none';
+        }
+    };
+
     function toggleFAQ(element) {
         const answer = element.querySelector(".faq-answer");
         answer.style.display = answer.style.display === "block" ? "none" : "block";
