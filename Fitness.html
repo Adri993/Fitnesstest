@@ -5,93 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PowerFit Fitnessstudio</title>
     <style>
-
-
-	#cookie-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #111;
-    color: white;
-    padding: 15px 100px 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99999;
-    font-size: 14px;
-}
-
-#cookie-banner a {
-    color: #e63946;
-}
-
-#cookie-accept {
-    background: #e63946;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 15px;
-    white-space: nowrap;
-}
-
-#cookie-decline {
-    background: transparent;
-    color: white;
-    border: 1px solid white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 10px;
-    white-space: nowrap;
-}
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
         }
-
         header {
             background: #111;
             color: white;
             padding: 20px;
             text-align: center;
         }
-
         nav {
             background: #e63946;
             padding: 10px;
             text-align: center;
         }
-
         nav a {
             color: white;
             margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
         }
-
         section {
             padding: 40px 20px;
             max-width: 1000px;
             margin: auto;
         }
-
         .hero {
             background: url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74') center/cover;
             color: white;
             text-align: center;
             padding: 100px 20px;
         }
-
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
         }
-
         .button {
             background: #e63946;
             color: white;
@@ -101,21 +52,17 @@
             font-size: 18px;
             border-radius: 5px;
         }
-
         .leistungen {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
-
         .card {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        /* FAQ */
         .faq-item {
             margin-bottom: 15px;
             background: white;
@@ -124,45 +71,72 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .faq-answer {
             display: none;
             margin-top: 10px;
             color: #555;
         }
-
         footer {
             background: #111;
             color: white;
             text-align: center;
             padding: 20px;
         }
-				.n8n-chat-window {
-    height: 600px !important;
-    width: 400px !important;
-}
+
+        /* Datenschutz Modal */
+        #datenschutz-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+        }
+        #datenschutz-modal .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px;
+        }
+        #datenschutz-modal h2 {
+            margin-top: 0;
+            color: #111;
+        }
+        #datenschutz-modal .btn-zustimmen {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-right: 10px;
+        }
+        #datenschutz-modal .btn-ablehnen {
+            background: transparent;
+            border: 1px solid #333;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
-<div id="cookie-banner">
-    <span>
-        Wir nutzen Cookies für den Chatbot und 
-        externe Dienste. 
-        <a href="/Fitnesstest/datenschutz.html">
-            Mehr erfahren
-        </a>
-    </span>
-    <div>
-        <button id="cookie-decline" 
-                onclick="declineCookies()">
-            Ablehnen
-        </button>
-        <button id="cookie-accept" 
-                onclick="acceptCookies()">
-            Alle akzeptieren
-        </button>
+
+<!-- Datenschutz Modal -->
+<div id="datenschutz-modal">
+    <div class="modal-box">
+        <h2>Datenschutz</h2>
+        <p>Unser Chatbot hilft dir bei Fragen rund ums Studio. Mit Klick auf "Zustimmen" willigst du ein, dass deine Angaben zur Bearbeitung deiner Anfrage verarbeitet werden.</p>
+        <p><a href="/Fitnesstest/datenschutz.html">Datenschutzerklärung lesen</a></p>
+        <button class="btn-zustimmen" onclick="chatZustimmen()">Zustimmen & Starten</button>
+        <button class="btn-ablehnen" onclick="chatAblehnen()">Ablehnen</button>
     </div>
 </div>
+
 <header>
     <h1>PowerFit Fitnessstudio</h1>
     <p>Dein Weg zu einem stärkeren Ich 💪</p>
@@ -201,28 +175,18 @@
 
 <section id="faq">
     <h2>Häufig gestellte Fragen (Q&A)</h2>
-
     <div class="faq-item" onclick="toggleFAQ(this)">
         <strong>Wie sind die Öffnungszeiten?</strong>
-        <div class="faq-answer">
-            Wir haben täglich von 6:00 bis 23:00 Uhr geöffnet.
-        </div>
+        <div class="faq-answer">Wir haben täglich von 6:00 bis 23:00 Uhr geöffnet.</div>
     </div>
-
     <div class="faq-item" onclick="toggleFAQ(this)">
         <strong>Gibt es eine Mindestvertragslaufzeit?</strong>
-        <div class="faq-answer">
-            Nein, wir bieten flexible Monatsverträge ohne lange Bindung an.
-        </div>
+        <div class="faq-answer">Nein, wir bieten flexible Monatsverträge ohne lange Bindung an.</div>
     </div>
-
     <div class="faq-item" onclick="toggleFAQ(this)">
         <strong>Kann ich ein Probetraining machen?</strong>
-        <div class="faq-answer">
-            Ja! Ein kostenloses Probetraining ist jederzeit möglich.
-        </div>
+        <div class="faq-answer">Ja! Ein kostenloses Probetraining ist jederzeit möglich.</div>
     </div>
-
 </section>
 
 <section id="kontakt">
@@ -233,14 +197,9 @@
 
 <footer>
     <p>© 2026 PowerFit Fitnessstudio – Alle Rechte vorbehalten</p>
-	    <p>
-        <a href="/Fitnesstest/datenschutz.html" style="color:white;">
-            Datenschutzerklärung
-        </a>
-    </p>
+    <p><a href="/Fitnesstest/datenschutz.html" style="color:white;">Datenschutzerklärung</a></p>
 </footer>
 
-	
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
     import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
@@ -255,38 +214,51 @@
         metadata: {},
         showWelcomeScreen: false,
         defaultLanguage: 'de',
-        initialMessages: ['Hey! 👋 Willkommen beim Strength Gym!',
-    'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪'],
+        initialMessages: [
+            'Hey! 👋 Willkommen beim Strength Gym!',
+            'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪'
+        ],
         i18n: {
             de: {
-                title: 'Datenschutz',
-                subtitle: 'Unser Chatbot hilft dir bei Fragen rund ums Studio. Mit Klick auf "Zustimmen" willigst du ein, dass deine Angaben verarbeitet werden.',
+                title: 'Strength Gym Assistent',
+                subtitle: '24/7 erreichbar!',
                 inputPlaceholder: 'Schreib deine Frage...',
-                getStarted: 'Zustimmen & Starten',
+                getStarted: 'Gespräch starten',
                 footer: '',
             },
         },
         enableStreaming: false,
     });
+
+    // Chat Button abfangen für Datenschutz
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const chatButton = document.querySelector('.n8n-chat-window-toggle');
+            if (chatButton) {
+                chatButton.addEventListener('click', function(e) {
+                    if (!localStorage.getItem('chatConsent')) {
+                        e.stopPropagation();
+                        document.getElementById('datenschutz-modal').style.display = 'flex';
+                    }
+                }, true);
+            }
+        }, 1500);
+    });
 </script>
 
 <script>
-function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('cookie-banner').style.display = 'none';
-}
-function declineCookies() {
-    localStorage.setItem('cookieConsent', 'declined');
-    document.getElementById('cookie-banner').style.display = 'none';
-}
-window.onload = function() {
-    if (localStorage.getItem('cookieConsent')) {
-        document.getElementById('cookie-banner').style.display = 'none';
+    function chatZustimmen() {
+        localStorage.setItem('chatConsent', 'accepted');
+        document.getElementById('datenschutz-modal').style.display = 'none';
+        // Chat Button klicken um Chat zu öffnen
+        document.querySelector('.n8n-chat-window-toggle').click();
     }
-}
-</script>
 
-<script>
+    function chatAblehnen() {
+        localStorage.setItem('chatConsent', 'declined');
+        document.getElementById('datenschutz-modal').style.display = 'none';
+    }
+
     function toggleFAQ(element) {
         const answer = element.querySelector(".faq-answer");
         answer.style.display = answer.style.display === "block" ? "none" : "block";
