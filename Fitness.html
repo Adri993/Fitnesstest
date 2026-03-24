@@ -123,18 +123,31 @@
             padding: 20px;
         }
 
-        /* 🔥 Chat Disclaimer (BMW Style) */
-        #chat-disclaimer {
-            position: fixed;
-            bottom: 0px;
-            right: 20px;
-            width: 320px;
-            font-size: 12px;
-            color: #666;
-            background: #f9f9f9;
-            padding: 8px;
-            border-top: 1px solid #ddd;
-            z-index: 9999;
+        footer a {
+            color: white;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* 🔥 Mobile Fullscreen Chat */
+        @media (max-width: 768px) {
+            .n8n-chat-window {
+                width: 100% !important;
+                height: 100% !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .n8n-chat {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+
+        /* 🔥 Besseres Input UX */
+        .n8n-chat-input textarea {
+            font-size: 16px !important;
         }
     </style>
 </head>
@@ -194,6 +207,11 @@
 
 <footer>
     <p>© 2026 PowerFit Fitnessstudio</p>
+    <p>
+        <a href="/Fitnesstest/datenschutz.html">
+            Datenschutzerklärung
+        </a>
+    </p>
 </footer>
 
 <!-- 🔥 Chat -->
@@ -209,7 +227,9 @@ createChat({
     initialMessages: [
         'Hey! 👋 Willkommen beim Strength Gym!',
         'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪',
-        '💡 Hinweis: Mit deiner Nachricht stimmst du der Datenverarbeitung zu.'
+        '',
+        '💡 Hinweis: Mit deiner Nachricht stimmst du der Datenverarbeitung zu.',
+        '🔗 Mehr Infos: /Fitnesstest/datenschutz.html'
     ],
 
     i18n: {
@@ -221,12 +241,6 @@ createChat({
     }
 });
 </script>
-
-<!-- 🔥 DSGVO Hinweis unter Chat -->
-<!--<div id="chat-disclaimer">-->
-<!--    Mit Nutzung des Chats stimmen Sie der Datenverarbeitung zu.-->
-<!--    <a href="/Fitnesstest/datenschutz.html">Mehr erfahren</a>-->
-<!--</div>-->
 
 <script>
 function acceptCookies() {
