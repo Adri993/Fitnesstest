@@ -137,6 +137,21 @@
             font-size: 14px;
         }
 
+        /* =====================
+           CHATBOT MOBILE
+           Wir überschreiben nur die offiziellen
+           CSS-Variablen von n8n – kein Hack nötig!
+        ===================== */
+        @media (max-width: 768px) {
+            :root {
+                --chat--window--width: 100vw;
+                --chat--window--height: 100dvh;
+                --chat--window--bottom: 0px;
+                --chat--window--right: 0px;
+                --chat--window--border-radius: 0px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -204,8 +219,9 @@
     </footer>
 
     <!-- =====================
-         CHATBOT CSS
-         (sendet keine Daten, darf immer geladen werden)
+         CHATBOT
+         CSS darf immer geladen werden (sendet keine Daten)
+         JS nur bei Cookie-Zustimmung
     ===================== -->
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
@@ -221,7 +237,6 @@
 
         // ---------------------
         // CHATBOT
-        // Exakt so wie n8n es vorschlägt – nichts verändert
         // ---------------------
         function loadChat() {
             import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
