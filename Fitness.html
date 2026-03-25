@@ -137,44 +137,6 @@
             font-size: 14px;
         }
 
-        /* =====================
-           CHATBOT MOBILE
-           Chatfenster = echter Vollbild
-        ===================== */
-/* Chatbot Mobile – wird per JS direkt gesetzt, CSS als Fallback */
-@media (max-width: 768px) {
-    [class*="chat-window"],
-    [class*="chat-container"],
-    [class*="n8n-chat"] {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100dvh !important;
-        max-width: 100vw !important;
-        max-height: 100dvh !important;
-        border-radius: 0 !important;
-        z-index: 999999 !important;
-        margin: 0 !important;
-    }
-}
-            .n8n-chat-window .n8n-chat {
-                height: 100dvh !important;
-                max-height: 100dvh !important;
-            }
-            .n8n-chat-window .n8n-chat-messages-list {
-                flex: 1 !important;
-                overflow-y: auto !important;
-            }
-            .n8n-chat-window .n8n-chat-input {
-                position: sticky !important;
-                bottom: 0 !important;
-                background: white !important;
-            }
-            .n8n-chat-header h1 { font-size: 16px !important; }
-            .n8n-chat-header p  { display: none !important; }
-        }
-
     </style>
 </head>
 <body>
@@ -242,9 +204,8 @@
     </footer>
 
     <!-- =====================
-         CHATBOT
-         CSS darf immer geladen werden (sendet keine Daten).
-         JS wird nur bei Cookie-Zustimmung geladen.
+         CHATBOT CSS
+         (sendet keine Daten, darf immer geladen werden)
     ===================== -->
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
@@ -260,87 +221,30 @@
 
         // ---------------------
         // CHATBOT
-        // Wird nur geladen wenn Cookies akzeptiert wurden
+        // Exakt so wie n8n es vorschlägt – nichts verändert
         // ---------------------
-function loadChat() {
-    import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
-        .then(function(module) {
-            module.createChat({
-                webhookUrl: 'DEINE_WEBHOOK_URL_HIER',
-                mode: 'window',
-                defaultLanguage: 'de',
-                initialMessages: [
-                    'Hey! 👋 Willkommen beim Strength Gym!',
-                    'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪',
-                    '💡 Datenschutzhinweis: Deine Nachrichten werden verarbeitet.\n\n🔗 Mehr Infos: /Fitnesstest/datenschutz.html',
-                ],
-                i18n: {
-                    de: {
-                        title: 'Strength Gym Assistent',
-                        subtitle: '24/7 erreichbar!',
-                        inputPlaceholder: 'Schreib deine Frage...',
-                    },
-                }
-            });
-
-            // MutationObserver: beobachtet die Seite und reagiert
-            // sobald das Chat-Fenster auftaucht oder sich verändert
-            const observer = new MutationObserver(() => {
-                if (window.innerWidth > 768) return;
-
-                // Alle möglichen Chat-Elemente suchen
-                const alleElemente = document.querySelectorAll(
-                    '[class*="chat-window"], [class*="chat-container"], [class*="n8n"]'
-                );
-
-                alleElemente.forEach(el => {
-                    // Nur wenn es sichtbar ist und groß genug (= das Fenster, nicht der Button)
-                    if (el.offsetHeight > 100) {
-                        el.style.setProperty('position', 'fixed', 'important');
-                        el.style.setProperty('top', '0', 'important');
-                        el.style.setProperty('left', '0', 'important');
-                        el.style.setProperty('width', '100vw', 'important');
-                        el.style.setProperty('height', '100dvh', 'important');
-                        el.style.setProperty('max-width', '100vw', 'important');
-                        el.style.setProperty('max-height', '100dvh', 'important');
-                        el.style.setProperty('border-radius', '0', 'important');
-                        el.style.setProperty('z-index', '999999', 'important');
-                        el.style.setProperty('margin', '0', 'important');
-                    }
-                });
-            });
-
-            // Beobachte die gesamte Seite auf Änderungen
-            observer.observe(document.body, {
-                childList: true,   // neue Elemente erkennen
-                subtree: true,     // auch tief verschachtelte Elemente
-                attributes: true   // Änderungen an Klassen/Styles erkennen
-            });
-
-            // Chat-Button: Seite einfrieren
-            setTimeout(() => {
-                const chatButton = document.querySelector('.n8n-chat-button');
-                if (chatButton) {
-                    chatButton.addEventListener('click', () => {
-                        if (window.innerWidth <= 768) {
-                            document.body.style.overflow = 'hidden';
-                            document.body.style.position = 'fixed';
-                            document.body.style.width    = '100%';
+        function loadChat() {
+            import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
+                .then(function(module) {
+                    module.createChat({
+                        webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
+                        mode: 'window',
+                        defaultLanguage: 'de',
+                        initialMessages: [
+                            'Hey! 👋 Willkommen beim Strength Gym!',
+                            'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪',
+                            '💡 Datenschutzhinweis: Deine Nachrichten werden verarbeitet.\n\n🔗 Mehr Infos: /Fitnesstest/datenschutz.html',
+                        ],
+                        i18n: {
+                            de: {
+                                title: 'Strength Gym Assistent',
+                                subtitle: '24/7 erreichbar!',
+                                inputPlaceholder: 'Schreib deine Frage...',
+                            },
                         }
                     });
-                }
-            }, 1500);
-        });
-}
-
-        // Mobile: Seite wiederherstellen wenn Chat schließt
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.n8n-chat-close')) {
-                document.body.style.overflow  = 'auto';
-                document.body.style.position  = '';
-                document.body.style.width     = '';
-            }
-        });
+                });
+        }
 
         // ---------------------
         // COOKIES
@@ -354,10 +258,8 @@ function loadChat() {
         function declineCookies() {
             localStorage.setItem('cookieConsent', 'declined');
             document.getElementById('cookie-banner').style.display = 'none';
-            // Kein loadChat() → kein Chatbot, keine Daten
         }
 
-        // Beim Seitenaufruf: frühere Entscheidung prüfen
         window.onload = function() {
             const entscheidung = localStorage.getItem('cookieConsent');
             if (entscheidung === 'accepted') {
@@ -366,7 +268,6 @@ function loadChat() {
             } else if (entscheidung === 'declined') {
                 document.getElementById('cookie-banner').style.display = 'none';
             }
-            // Noch keine Entscheidung → Banner bleibt sichtbar
         };
 
     </script>
