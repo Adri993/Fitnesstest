@@ -6,6 +6,10 @@
     <title>PowerFit Fitnessstudio</title>
 
     <style>
+
+        /* =====================
+           COOKIE BANNER
+        ===================== */
         #cookie-banner {
             position: fixed;
             bottom: 0;
@@ -13,16 +17,14 @@
             right: 0;
             background: #111;
             color: white;
-            padding: 15px 100px 15px 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 99999;
             font-size: 14px;
         }
-
         #cookie-banner a { color: #e63946; }
-
         #cookie-accept {
             background: #e63946;
             color: white;
@@ -32,7 +34,6 @@
             border-radius: 5px;
             margin-left: 15px;
         }
-
         #cookie-decline {
             background: transparent;
             color: white;
@@ -43,25 +44,29 @@
             margin-left: 10px;
         }
 
+        /* =====================
+           ALLGEMEIN
+        ===================== */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
         }
 
+        /* =====================
+           HEADER & NAV
+        ===================== */
         header {
             background: #111;
             color: white;
             padding: 20px;
             text-align: center;
         }
-
         nav {
             background: #e63946;
             padding: 10px;
             text-align: center;
         }
-
         nav a {
             color: white;
             margin: 0 15px;
@@ -69,19 +74,20 @@
             font-weight: bold;
         }
 
+        /* =====================
+           SEKTIONEN & KARTEN
+        ===================== */
         section {
             padding: 40px 20px;
             max-width: 1000px;
             margin: auto;
         }
-
         .hero {
             background: url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74') center/cover;
             color: white;
             text-align: center;
             padding: 100px 20px;
         }
-
         .button {
             background: #e63946;
             color: white;
@@ -90,19 +96,20 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
         .leistungen {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
-
         .card {
             background: white;
             padding: 20px;
             border-radius: 10px;
         }
 
+        /* =====================
+           FAQ
+        ===================== */
         .faq-item {
             margin-bottom: 15px;
             background: white;
@@ -110,227 +117,221 @@
             padding: 15px;
             cursor: pointer;
         }
-
         .faq-answer {
             display: none;
             margin-top: 10px;
         }
 
+        /* =====================
+           FOOTER
+        ===================== */
         footer {
             background: #111;
             color: white;
             text-align: center;
             padding: 20px;
         }
-
         footer a {
             color: white;
             text-decoration: underline;
             font-size: 14px;
         }
 
-      @media (max-width: 768px) {
+        /* =====================
+           CHATBOT MOBILE
+           Chatfenster = echter Vollbild
+        ===================== */
+        @media (max-width: 768px) {
+            .n8n-chat-window {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100dvh !important;
+                max-width: 100vw !important;
+                max-height: 100dvh !important;
+                border-radius: 0 !important;
+                z-index: 999999 !important;
+                margin: 0 !important;
+            }
+            .n8n-chat-window .n8n-chat {
+                height: 100dvh !important;
+                max-height: 100dvh !important;
+            }
+            .n8n-chat-window .n8n-chat-messages-list {
+                flex: 1 !important;
+                overflow-y: auto !important;
+            }
+            .n8n-chat-window .n8n-chat-input {
+                position: sticky !important;
+                bottom: 0 !important;
+                background: white !important;
+            }
+            .n8n-chat-header h1 { font-size: 16px !important; }
+            .n8n-chat-header p  { display: none !important; }
+        }
 
-    /* Komplettes Chat-Fenster: echter Vollbild */
-    .n8n-chat-window {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100dvh !important;      /* dvh = berücksichtigt Tastatur */
-        max-width: 100vw !important;
-        max-height: 100dvh !important;
-        border-radius: 0 !important;
-        z-index: 999999 !important;
-        margin: 0 !important;
-    }
-
-    /* Innerer Chat-Container ebenfalls Vollbild */
-    .n8n-chat-window .n8n-chat {
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-    }
-
-    /* Nachrichtenbereich: nimmt verfügbaren Platz */
-    .n8n-chat-window .n8n-chat-messages-list {
-        flex: 1 !important;
-        overflow-y: auto !important;
-    }
-
-    /* Eingabebereich bleibt unten fixiert */
-    .n8n-chat-window .n8n-chat-input {
-        position: sticky !important;
-        bottom: 0 !important;
-        background: white !important;
-    }
-
-    /* Titel kleiner */
-    .n8n-chat-header h1 {
-        font-size: 16px !important;
-    }
-
-    /* Untertitel verstecken */
-    .n8n-chat-header p {
-        display: none !important;
-    }
-}
     </style>
 </head>
-
 <body>
 
-<div id="cookie-banner">
-    <span>
-        Wir nutzen Cookies für den Chatbot und externe Dienste.
-        <a href="/Fitnesstest/datenschutz.html">Mehr erfahren</a>
-    </span>
-    <div>
-        <button id="cookie-decline" onclick="declineCookies()">Ablehnen</button>
-        <button id="cookie-accept" onclick="acceptCookies()">Alle akzeptieren</button>
+    <!-- =====================
+         COOKIE BANNER
+    ===================== -->
+    <div id="cookie-banner">
+        <span>
+            Wir nutzen Cookies für den Chatbot und externe Dienste.
+            <a href="/Fitnesstest/datenschutz.html">Mehr erfahren</a>
+        </span>
+        <div>
+            <button id="cookie-decline" onclick="declineCookies()">Ablehnen</button>
+            <button id="cookie-accept"  onclick="acceptCookies()">Alle akzeptieren</button>
+        </div>
     </div>
-</div>
 
-<header>
-    <h1>PowerFit Fitnessstudio</h1>
-    <p>Dein Weg zu einem stärkeren Ich 💪</p>
-</header>
+    <!-- =====================
+         WEBSITE INHALT
+    ===================== -->
+    <header>
+        <h1>PowerFit Fitnessstudio</h1>
+        <p>Dein Weg zu einem stärkeren Ich 💪</p>
+    </header>
 
-<nav>
-    <a href="#home">Start</a>
-    <a href="#leistungen">Leistungen</a>
-    <a href="#faq">Q&A</a>
-    <a href="#kontakt">Kontakt</a>
-</nav>
+    <nav>
+        <a href="#home">Start</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#faq">Q&A</a>
+        <a href="#kontakt">Kontakt</a>
+    </nav>
 
-<section class="hero" id="home">
-    <h1>Starte noch heute!</h1>
-    <p>Moderne Geräte • Professionelle Trainer • Flexible Mitgliedschaften</p>
-    <button class="button">Jetzt anmelden</button>
-</section>
+    <section class="hero" id="home">
+        <h1>Starte noch heute!</h1>
+        <p>Moderne Geräte • Professionelle Trainer • Flexible Mitgliedschaften</p>
+        <button class="button">Jetzt anmelden</button>
+    </section>
 
-<section id="leistungen">
-    <h2>Unsere Leistungen</h2>
-    <div class="leistungen">
-        <div class="card"><h3>Krafttraining</h3></div>
-        <div class="card"><h3>Cardio</h3></div>
-        <div class="card"><h3>Personal Training</h3></div>
-    </div>
-</section>
+    <section id="leistungen">
+        <h2>Unsere Leistungen</h2>
+        <div class="leistungen">
+            <div class="card"><h3>Krafttraining</h3></div>
+            <div class="card"><h3>Cardio</h3></div>
+            <div class="card"><h3>Personal Training</h3></div>
+        </div>
+    </section>
 
-<section id="faq">
-    <h2>Häufig gestellte Fragen</h2>
-    <div class="faq-item" onclick="toggleFAQ(this)">
-        <strong>Wie sind die Öffnungszeiten?</strong>
-        <div class="faq-answer">Täglich 6–23 Uhr</div>
-    </div>
-</section>
+    <section id="faq">
+        <h2>Häufig gestellte Fragen</h2>
+        <div class="faq-item" onclick="toggleFAQ(this)">
+            <strong>Wie sind die Öffnungszeiten?</strong>
+            <div class="faq-answer">Täglich 6–23 Uhr</div>
+        </div>
+    </section>
 
-<section id="kontakt">
-    <h2>Kontakt</h2>
-    <p>Email: info@powerfit.de</p>
-</section>
+    <section id="kontakt">
+        <h2>Kontakt</h2>
+        <p>Email: info@powerfit.de</p>
+    </section>
 
-<footer>
-    <p>© 2026 PowerFit Fitnessstudio</p>
-    <p><a href="/Fitnesstest/datenschutz.html">Datenschutzerklärung</a></p>
-</footer>
+    <footer>
+        <p>© 2026 PowerFit Fitnessstudio</p>
+        <p><a href="/Fitnesstest/datenschutz.html">Datenschutzerklärung</a></p>
+    </footer>
 
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <!-- =====================
+         CHATBOT
+         CSS darf immer geladen werden (sendet keine Daten).
+         JS wird nur bei Cookie-Zustimmung geladen.
+    ===================== -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
-<script>
+    <script>
 
-    // FAQ aufklappen/zuklappen
-    function toggleFAQ(el) {
-        const a = el.querySelector(".faq-answer");
-        a.style.display = a.style.display === "block" ? "none" : "block";
-    }
+        // ---------------------
+        // FAQ
+        // ---------------------
+        function toggleFAQ(el) {
+            const answer = el.querySelector(".faq-answer");
+            answer.style.display = answer.style.display === "block" ? "none" : "block";
+        }
 
-    // Chatbot laden – wird NUR aufgerufen wenn User zustimmt
-function loadChat() {
-    import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
-        .then(function(module) {
-            module.createChat({
-                webhookUrl: 'https://n8n-n8n.0x6dw4.easypanel.host/webhook/c07067e7-6363-4841-b346-f3f5ea2dbe10/chat',
-                mode: 'window',
-                defaultLanguage: 'de',
-                initialMessages: [
-                    'Hey! 👋 Willkommen beim Strength Gym!',
-                    'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪',
-                    '💡 Datenschutzhinweis: Deine Nachrichten werden verarbeitet.\n\n🔗 Mehr Infos: /Fitnesstest/datenschutz.html',
-                ],
-                i18n: {
-                    de: {
-                        title: 'Strength Gym Assistent',
-                        subtitle: '24/7 erreichbar!',
-                        inputPlaceholder: 'Schreib deine Frage...',
-                    },
-                }
-            });
-
-            // Warten bis der Chat-Button da ist, dann Events dranhängen
-            setTimeout(() => {
-                const chatButton = document.querySelector('.n8n-chat-button');
-                if (chatButton) {
-                    chatButton.addEventListener('click', () => {
-                        if (window.innerWidth <= 768) {
-                            // Seite einfrieren → kein Durchscheinen
-                            document.body.style.overflow = 'hidden';
-                            document.body.style.position = 'fixed';
-                            document.body.style.width = '100%';
+        // ---------------------
+        // CHATBOT
+        // Wird nur geladen wenn Cookies akzeptiert wurden
+        // ---------------------
+        function loadChat() {
+            import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js')
+                .then(function(module) {
+                    module.createChat({
+                        webhookUrl: 'DEINE_WEBHOOK_URL_HIER',
+                        mode: 'window',
+                        defaultLanguage: 'de',
+                        initialMessages: [
+                            'Hey! 👋 Willkommen beim Strength Gym!',
+                            'Ich helfe dir bei Fragen, Probetraining oder einem Beratungsgespräch. 💪',
+                            '💡 Datenschutzhinweis: Deine Nachrichten werden verarbeitet.\n\n🔗 Mehr Infos: /Fitnesstest/datenschutz.html',
+                        ],
+                        i18n: {
+                            de: {
+                                title: 'Strength Gym Assistent',
+                                subtitle: '24/7 erreichbar!',
+                                inputPlaceholder: 'Schreib deine Frage...',
+                            },
                         }
                     });
-                }
-            }, 1500);
+
+                    // Mobile: Seite einfrieren wenn Chat öffnet
+                    setTimeout(() => {
+                        const chatButton = document.querySelector('.n8n-chat-button');
+                        if (chatButton) {
+                            chatButton.addEventListener('click', () => {
+                                if (window.innerWidth <= 768) {
+                                    document.body.style.overflow  = 'hidden';
+                                    document.body.style.position  = 'fixed';
+                                    document.body.style.width     = '100%';
+                                }
+                            });
+                        }
+                    }, 1500);
+                });
+        }
+
+        // Mobile: Seite wiederherstellen wenn Chat schließt
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.n8n-chat-close')) {
+                document.body.style.overflow  = 'auto';
+                document.body.style.position  = '';
+                document.body.style.width     = '';
+            }
         });
-}
 
-    // Cookies akzeptieren → Chat starten
-    function acceptCookies() {
-        localStorage.setItem('cookieConsent', 'accepted');
-        document.getElementById('cookie-banner').style.display = 'none';
-        loadChat();
-    }
-
-    // Cookies ablehnen → kein Chat
-    function declineCookies() {
-        localStorage.setItem('cookieConsent', 'declined');
-        document.getElementById('cookie-banner').style.display = 'none';
-    }
-
-    // Beim Seitenaufruf: frühere Entscheidung prüfen
-    window.onload = function() {
-        const entscheidung = localStorage.getItem('cookieConsent');
-        if (entscheidung === 'accepted') {
+        // ---------------------
+        // COOKIES
+        // ---------------------
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
             document.getElementById('cookie-banner').style.display = 'none';
             loadChat();
-        } else if (entscheidung === 'declined') {
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
             document.getElementById('cookie-banner').style.display = 'none';
+            // Kein loadChat() → kein Chatbot, keine Daten
         }
-        // Noch keine Entscheidung → Banner bleibt sichtbar
 
-        // Mobile: Scrollen sperren wenn Chat offen
-        setTimeout(() => {
-            const chatButton = document.querySelector('.n8n-chat-button');
-            if (chatButton) {
-                chatButton.addEventListener('click', () => {
-                    setTimeout(() => {
-                        if (window.innerWidth <= 768) {
-                            document.body.style.overflow = 'hidden';
-                        }
-                    }, 300);
-                });
+        // Beim Seitenaufruf: frühere Entscheidung prüfen
+        window.onload = function() {
+            const entscheidung = localStorage.getItem('cookieConsent');
+            if (entscheidung === 'accepted') {
+                document.getElementById('cookie-banner').style.display = 'none';
+                loadChat();
+            } else if (entscheidung === 'declined') {
+                document.getElementById('cookie-banner').style.display = 'none';
             }
-        }, 2000);
-    };
+            // Noch keine Entscheidung → Banner bleibt sichtbar
+        };
 
-    // Scrollen wiederherstellen wenn Chat geschlossen
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('.n8n-chat-close')) {
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-</script>
+    </script>
 
 </body>
 </html>
